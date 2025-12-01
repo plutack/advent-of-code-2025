@@ -80,13 +80,17 @@ func day1Part2() {
 			panic(err)
 		}
 		if currDir.direction == right {
-			total := start + currDir.steps
-			count += total / 100
-			start = total % 100
+			finish := (start + currDir.steps) % 100
+			count += (start + currDir.steps) / 100
+			start = finish
 		} else {
-			zerosPassed := (currDir.steps + (100 - start)) / 100
-			count += zerosPassed
-			start = ((start-currDir.steps)%100 + 100) % 100
+			finish := ((start-currDir.steps)%100 + 100) % 100
+			if start == 0 {
+				count += currDir.steps / 100
+			} else if currDir.steps >= start {
+				count += 1 + (currDir.steps-start)/100
+			}
+			start = finish
 		}
 	}
 	fmt.Printf("part 2 count: %d\n", count)
