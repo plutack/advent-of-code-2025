@@ -116,9 +116,8 @@ func main() {
 			panic(err)
 		}
 		if currDir.direction == left {
-			finish = (start - currDir.steps + 100) % 100
+			finish = ((start-currDir.steps)%100 + 100) % 100
 		} else {
-
 			finish = (start + currDir.steps) % 100
 		}
 
