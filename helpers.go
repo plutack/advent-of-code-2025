@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"os"
+	"strings"
 )
 
 func check(e error) {
@@ -27,4 +28,14 @@ func readLineFromFile(p string) <-chan string {
 	}()
 
 	return out
+}
+
+func readSingleLineFile(p string) ([]string, error) {
+	data, err := os.ReadFile(p)
+	if err != nil {
+		return nil, err
+	}
+
+	items := strings.Split(string(data), ",")
+	return items, nil
 }

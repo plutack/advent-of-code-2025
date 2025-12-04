@@ -41,9 +41,7 @@ func decodeInstruction(c string) (dialer, error) {
 	}
 
 	steps, err := strconv.Atoi(rest)
-	if err != nil {
-		return dialer{}, fmt.Errorf("invalid number: %w", err)
-	}
+	check(err)
 	d.steps = steps
 
 	return d, nil
@@ -55,9 +53,7 @@ func day1Part1() {
 
 	for line := range lineChan {
 		currDir, err := decodeInstruction(line)
-		if err != nil {
-			panic(err)
-		}
+		check(err)
 		if currDir.direction == right {
 			start = (start + currDir.steps) % 100
 		} else {
@@ -76,9 +72,7 @@ func day1Part2() {
 	lineChan := readLineFromFile("./input/day-1.txt")
 	for line := range lineChan {
 		currDir, err := decodeInstruction(line)
-		if err != nil {
-			panic(err)
-		}
+		check(err)
 		if currDir.direction == right {
 			finish := (start + currDir.steps) % 100
 			count += (start + currDir.steps) / 100
@@ -94,9 +88,4 @@ func day1Part2() {
 		}
 	}
 	fmt.Printf("part 2 count: %d\n", count)
-}
-
-func main() {
-	day1Part1()
-	day1Part2()
 }
